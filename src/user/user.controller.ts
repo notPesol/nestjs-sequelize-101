@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -14,7 +15,7 @@ import { UserService } from './user.service';
 import { UserSearchDTO } from './dto/search-user.dto';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { HttpExceptionFilter } from 'src/common/filter/http-exception.filter';
-import { UniqueConstraintFilter } from 'src/common/filter/unique-contrant.filter';
+import { UniqueConstraintFilter } from 'src/common/filter/unique-constant.filter';
 import { ApiTags } from '@nestjs/swagger';
 import {
   SwaggerResponse,
@@ -26,6 +27,14 @@ import { UserDTO } from './dto/user.dto';
 @Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Delete('/:id')
+  @SwaggerResponse(UserDTO)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseFilters(new HttpExceptionFilter())
+  async delete(@Param('id') id: string) {
+    return this.userService.delete(id);
+  }
 
   @Put()
   @SwaggerResponse(UserDTO)
