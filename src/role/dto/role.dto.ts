@@ -6,9 +6,8 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { BaseDTO } from 'src/common/dto/base.dto';
 
-export class UserDTO extends BaseDTO {
+export class RoleDTO {
   @IsNumber()
   @ApiProperty({
     type: Number,
@@ -20,29 +19,11 @@ export class UserDTO extends BaseDTO {
   @IsString()
   @ApiProperty({
     type: String,
-    description: 'username',
-    example: 'username001',
+    description: 'role name',
+    example: 'admin',
     required: true,
   })
-  username: string;
-
-  @IsString()
-  @ApiProperty({
-    type: String,
-    description: 'password',
-    example: 'password001',
-    required: true,
-  })
-  password: string;
-
-  @IsBoolean()
-  @IsOptional()
-  @ApiProperty({
-    type: Boolean,
-    description: 'isActive',
-    example: true,
-  })
-  isActive: boolean;
+  name: string;
 
   @IsDate()
   @IsOptional()

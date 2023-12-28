@@ -9,6 +9,10 @@ import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
+import { RoleModule } from './role/role.module';
+import { UserAssociationModule } from './user-association/module';
+import { UserRoleModule } from './user-role/module';
+import { RolesGuard } from './role/role.guard';
 
 @Module({
   imports: [
@@ -17,8 +21,11 @@ import { APP_GUARD } from '@nestjs/core';
     UserModule,
     AuthModule,
     JwtModule,
+    RoleModule,
+    UserAssociationModule,
+    UserRoleModule,
   ],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }],
+  providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }, { provide: APP_GUARD, useClass: RolesGuard }],
 })
 export class AppModule {}

@@ -11,9 +11,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserSearchDTO } from './dto/search-user.dto';
-import { CreateUserDTO } from './dto/create-user.dto';
+import { RoleService } from './role.service';
+import { RoleSearchDTO } from './dto/search-role.dto';
+import { CreateRoleDTO } from './dto/create-role.dto';
 import { HttpExceptionFilter } from 'src/common/filter/http-exception.filter';
 import { UniqueConstraintFilter } from 'src/common/filter/unique-constant.filter';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -21,51 +21,48 @@ import {
   SwaggerResponse,
   SwaggerSearchResponse,
 } from 'src/common/swagger/swagger-response';
-import { UserDTO } from './dto/user.dto';
-import { ROLES } from 'src/role/enum';
-import { Roles } from 'src/role/decorator';
+import { RoleDTO } from './dto/role.dto';
 
 @ApiBearerAuth()
-@ApiTags('Users')
-@Controller('/user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@ApiTags('Roles')
+@Controller('/role')
+export class RoleController {
+  constructor(private readonly roleService: RoleService) {}
 
   @Delete('/:id')
-  @SwaggerResponse(UserDTO)
+  @SwaggerResponse(RoleDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter())
   async delete(@Param('id') id: string) {
-    return this.userService.delete(id);
+    return this.roleService.delete(id);
   }
 
   @Put()
-  @SwaggerResponse(UserDTO)
+  @SwaggerResponse(RoleDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter(), new UniqueConstraintFilter())
-  async update(@Body() dto: UserDTO) {
-    return this.userService.update(dto);
+  async update(@Body() dto: RoleDTO) {
+    return this.roleService.update(dto);
   }
 
   @Post()
-  @Roles(ROLES.ADMIN)
-  @SwaggerResponse(UserDTO)
+  @SwaggerResponse(RoleDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter(), new UniqueConstraintFilter())
-  async create(@Body() dto: CreateUserDTO) {
-    return this.userService.create(dto);
+  async create(@Body() dto: CreateRoleDTO) {
+    return this.roleService.create(dto);
   }
 
   @Get()
-  @SwaggerSearchResponse(UserDTO)
+  @SwaggerSearchResponse(RoleDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
-  async search(@Query() searchDTO: UserSearchDTO) {
-    return this.userService.search(searchDTO);
+  async search(@Query() searchDTO: RoleSearchDTO) {
+    return this.roleService.search(searchDTO);
   }
 
   @Get('/:id')
-  @SwaggerResponse(UserDTO)
+  @SwaggerResponse(RoleDTO)
   async getById(@Param('id') id: string) {
-    return this.userService.getById(id);
+    return this.roleService.getById(id);
   }
 }

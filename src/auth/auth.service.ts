@@ -3,22 +3,28 @@ import { SignInUserDTO } from './dto/sign-in-user.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ResponseDTO } from 'src/common/dto/response.dto';
+import { UserAssociationService } from 'src/user-association/service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UserService,
+    private readonly userAssociationService: UserAssociationService,
     private readonly jwtService: JwtService,
   ) {}
 
   async signIn(dto: SignInUserDTO) {
-    const { data: user } = await this.userService.findByUsername(dto.username);
+    const { data: userAssociation } =
+      await this.userAssociationService.findByUsername(dto.username);
 
-    if (user?.password !== dto.password) {
+    if (userAssociation?.password !== dto.password) {
       throw new UnauthorizedException();
     }
 
-    const payload = { sub: user.id, username: user.username };
+    const payload = {
+      sub: userAssociation.id,
+      username: userAssociation.username,
+      roles: userAssociation.roles,
+    };
     const accessToken = await this.jwtService.signAsync(payload);
 
     const responseDTO = new ResponseDTO<any>();
