@@ -49,11 +49,11 @@ export class BaseRepository<T> {
   }
 
   async update(dto: any): Promise<T> {
-    const data = await this.model.update(dto, {
+    const [_, model] = await this.model.update(dto, {
       where: { id: dto.id },
       returning: true,
     });
-    return this.newObject(data);
+    return this.newObject(model[0]);
   }
 
   async delete(id: string): Promise<number> {
