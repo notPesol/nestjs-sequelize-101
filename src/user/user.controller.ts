@@ -32,6 +32,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Delete('/:id')
+  @Roles(ROLES.ADMIN)
   @SwaggerResponse(UserDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter())
