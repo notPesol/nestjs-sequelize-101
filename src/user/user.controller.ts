@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseFilters,
   UsePipes,
@@ -25,6 +26,14 @@ import { UserDTO } from './dto/user.dto';
 @Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Put()
+  @SwaggerResponse(UserDTO)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @UseFilters(new HttpExceptionFilter(), new UniqueConstraintFilter())
+  async update(@Body() dto: UserDTO) {
+    return this.userService.update(dto);
+  }
 
   @Post()
   @SwaggerResponse(UserDTO)

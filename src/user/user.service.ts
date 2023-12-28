@@ -10,8 +10,18 @@ import { CreateUserDTO } from './dto/create-user.dto';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
+  async update(dto: CreateUserDTO) {
+    const result = await this.userRepository.update(dto);
+    const responseDTO = new ResponseDTO<UserDTO>();
+    responseDTO.data = result;
+    return responseDTO;
+  }
+
   async create(dto: CreateUserDTO) {
-    return this.userRepository.create(dto);
+    const result = await this.userRepository.create(dto);
+    const responseDTO = new ResponseDTO<UserDTO>();
+    responseDTO.data = result;
+    return responseDTO;
   }
 
   async search(searchDTO: UserSearchDTO) {
