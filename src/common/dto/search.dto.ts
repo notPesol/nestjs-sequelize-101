@@ -12,7 +12,7 @@ export class SearchDTO {
 
   @IsNumber()
   @Type(() => Number)
-  page: number = 0;
+  page: number = 1;
 
   @IsNumber()
   @Type(() => Number)
