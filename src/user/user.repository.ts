@@ -10,6 +10,11 @@ export class UserRepository extends BaseRepository<UserDTO> {
     const model = databaseService.define(
       'user',
       {
+        id: {
+          type: DataTypes.NUMBER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
         username: {
           type: DataTypes.STRING,
           unique: true,

@@ -1,7 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDate, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class UserDTO {
+  @IsNumber()
+  @ApiProperty({
+    type: Number,
+    description: 'id of user',
+    example: 36,
+  })
+  id: number;
+
   @IsString()
   @ApiProperty({
     type: String,
@@ -21,6 +35,7 @@ export class UserDTO {
   password: string;
 
   @IsBoolean()
+  @IsOptional()
   @ApiProperty({
     type: Boolean,
     description: 'isActive',
@@ -29,6 +44,7 @@ export class UserDTO {
   isActive: boolean;
 
   @IsDate()
+  @IsOptional()
   @ApiProperty({
     description: 'created at',
     example: new Date(),
@@ -36,6 +52,7 @@ export class UserDTO {
   createdAt: Date;
 
   @IsDate()
+  @IsOptional()
   @ApiProperty({
     description: 'updated at',
     example: new Date(),
