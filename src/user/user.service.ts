@@ -78,4 +78,15 @@ export class UserService {
     responseDTO.data = await this.userRepository.read(id);
     return responseDTO;
   }
+
+  async findByUsername(username: string) {
+    const model = await this.userRepository
+      .getModel()
+      .findOne({ where: { username, isActive: true } });
+
+    const responseDTO = new ResponseDTO<UserDTO>();
+    responseDTO.data = this.userRepository.newObject(model);
+
+    return responseDTO;
+  }
 }

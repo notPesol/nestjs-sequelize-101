@@ -16,6 +16,7 @@ async function bootstrap() {
     .setTitle('NestJs Sequelize 101')
     .setDescription('NestJs Sequelize 101 API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

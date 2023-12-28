@@ -16,13 +16,14 @@ import { UserSearchDTO } from './dto/search-user.dto';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { HttpExceptionFilter } from 'src/common/filter/http-exception.filter';
 import { UniqueConstraintFilter } from 'src/common/filter/unique-constant.filter';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   SwaggerResponse,
   SwaggerSearchResponse,
 } from 'src/common/swagger/swagger-response';
 import { UserDTO } from './dto/user.dto';
 
+@ApiBearerAuth()
 @ApiTags('Users')
 @Controller('/user')
 export class UserController {
