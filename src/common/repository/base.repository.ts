@@ -24,6 +24,11 @@ export class BaseRepository<T> {
     return this.model;
   }
 
+  async create(dto: any) {
+    const model = await this.model.create(dto, { returning: true });
+    return this.newObject(model);
+  }
+
   async findAll(options?: FindOptions<any>): Promise<T[]> {
     const rows = await this.model.findAll(options);
     return rows.map((row) => this.newObject(row));

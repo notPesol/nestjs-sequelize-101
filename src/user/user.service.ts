@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { UserDTO } from './dto/user.dto';
-import { UserSearchDTO } from './dto/user.search.dto';
+import { UserSearchDTO } from './dto/search-user.dto';
 import { ResponseDTO } from 'src/common/dto/response.dto';
 import { FindOptions, Op, WhereOptions } from 'sequelize';
+import { CreateUserDTO } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
+
+  async create(dto: CreateUserDTO) {
+    return this.userRepository.create(dto);
+  }
 
   async search(searchDTO: UserSearchDTO) {
     const options: FindOptions = {};
