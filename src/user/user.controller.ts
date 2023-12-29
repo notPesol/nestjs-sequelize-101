@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UseFilters,
   UsePipes,
   ValidationPipe,
@@ -44,8 +45,8 @@ export class UserController {
   @SwaggerResponse(UserDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter(), new UniqueConstraintFilter())
-  async update(@Body() dto: UserDTO) {
-    return this.userService.update(dto);
+  async update(@Req() req, @Body() dto: UserDTO) {
+    return this.userService.update(dto, req);
   }
 
   @Post()

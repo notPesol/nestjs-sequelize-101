@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { UserDTO } from './dto/user.dto';
 import { UserSearchDTO } from './dto/search-user.dto';
@@ -6,6 +6,7 @@ import { ResponseDTO } from 'src/common/dto/response.dto';
 import { FindOptions, Op, WhereOptions } from 'sequelize';
 import { CreateUserDTO } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
+import { ROLES } from 'src/role/enum';
 
 @Injectable()
 export class UserService {
@@ -18,9 +19,17 @@ export class UserService {
     return responseDTO;
   }
 
-  async update(dto: CreateUserDTO) {
+  async update(dto: CreateUserDTO, req: any) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(dto.password, salt);
+
+    let isCanUpdate =
+      req?.user?.roles?.includes(ROLES.ADMIN) ||
+      dto?.username === req?.user?.username;
+
+    if (!isCanUpdate) {
+      throw new ForbiddenException();
+    }
 
     const result = await this.userRepository.update(
       { ...dto, password: hashedPassword },
