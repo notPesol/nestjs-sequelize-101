@@ -12,6 +12,7 @@ import { UserAssociationModule } from './user-association/module';
 import { UserRoleModule } from './user-role/module';
 import { RolesGuard } from './role/role.guard';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { ProfileModule } from './profile/module';
 
 @Module({
   imports: [
@@ -23,6 +24,8 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     RoleModule,
     UserAssociationModule,
     UserRoleModule,
+    ProfileModule,
+    UserAssociationModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: AuthGuard },
