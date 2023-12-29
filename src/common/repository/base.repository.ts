@@ -3,6 +3,7 @@ import {
   FindOptions,
   Model,
   ModelStatic,
+  WhereOptions,
 } from 'sequelize';
 
 export class BaseRepository<T> {
@@ -48,9 +49,10 @@ export class BaseRepository<T> {
     return this.newObject(data);
   }
 
-  async update(dto: any): Promise<T> {
+  async update(dto: any, whereOptions?: WhereOptions<any>): Promise<T> {
+    const where = whereOptions ? whereOptions : { id: dto.id };
     const [_, model] = await this.model.update(dto, {
-      where: { id: dto.id },
+      where,
       returning: true,
     });
     return this.newObject(model[0]);
