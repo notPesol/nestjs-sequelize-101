@@ -4,6 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ResponseDTO } from 'src/common/dto/response.dto';
 import { UserAssociationService } from 'src/user-association/service';
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,9 @@ export class AuthService {
     const { data: userAssociation } =
       await this.userAssociationService.findByUsername(dto.username);
 
-    if (userAssociation?.password !== dto.password) {
+    const isMatch = await bcrypt.compare(dto.password, userAssociation.password);
+
+    if (!isMatch) {
       throw new UnauthorizedException();
     }
 
