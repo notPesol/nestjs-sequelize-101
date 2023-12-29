@@ -5,6 +5,7 @@ import { UserSearchDTO } from './dto/search-user.dto';
 import { ResponseDTO } from 'src/common/dto/response.dto';
 import { FindOptions, Op, WhereOptions } from 'sequelize';
 import { CreateUserDTO } from './dto/create-user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -18,14 +19,28 @@ export class UserService {
   }
 
   async update(dto: CreateUserDTO) {
-    const result = await this.userRepository.update(dto);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(dto.password, salt);
+
+    const result = await this.userRepository.update(
+      { ...dto, password: hashedPassword },
+      { username: dto.username },
+    );
+
     const responseDTO = new ResponseDTO<UserDTO>();
     responseDTO.data = result;
     return responseDTO;
   }
 
   async create(dto: CreateUserDTO) {
-    const result = await this.userRepository.create(dto);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(dto.password, salt);
+
+    const result = await this.userRepository.create({
+      ...dto,
+      password: hashedPassword,
+    });
+
     const responseDTO = new ResponseDTO<UserDTO>();
     responseDTO.data = result;
     return responseDTO;

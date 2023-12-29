@@ -10,6 +10,7 @@ import { BaseDTO } from 'src/common/dto/base.dto';
 
 export class UserDTO extends BaseDTO {
   @IsNumber()
+  @IsOptional()
   @ApiProperty({
     type: Number,
     description: 'id of user',
