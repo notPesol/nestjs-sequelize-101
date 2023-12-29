@@ -61,4 +61,9 @@ export class BaseRepository<T> {
   async delete(id: string): Promise<number> {
     return await this.model.destroy({ where: { id } });
   }
+
+  async upsert(dto: any) {
+    const [model] = await this.model.upsert(dto, { returning: true });
+    return this.newObject(model);
+  }
 }

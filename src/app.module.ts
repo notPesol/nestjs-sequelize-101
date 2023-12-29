@@ -13,10 +13,14 @@ import { UserRoleModule } from './user-role/module';
 import { RolesGuard } from './role/role.guard';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { ProfileModule } from './profile/module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),
+    MulterModule.register({
+      dest: './files',
+    }),
     DatabaseModule,
     UserModule,
     AuthModule,
