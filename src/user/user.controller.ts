@@ -25,12 +25,16 @@ import {
 import { UserDTO } from './dto/user.dto';
 import { ROLES } from 'src/role/enum';
 import { Roles } from 'src/role/decorator';
+import { UserBLL } from './user.bll';
 
 @ApiBearerAuth()
 @ApiTags('Users')
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly userBLL: UserBLL,
+  ) {}
 
   @Delete('/:id')
   @Roles(ROLES.ADMIN)
@@ -45,7 +49,7 @@ export class UserController {
   @SwaggerResponse(UserDTO)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter(), new UniqueConstraintFilter())
-  async update(@Req() req, @Body() dto: UserDTO) {
+  async update(@Req() req, @Body() dto: CreateUserDTO) {
     return this.userService.update(dto, req);
   }
 
@@ -55,7 +59,7 @@ export class UserController {
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters(new HttpExceptionFilter(), new UniqueConstraintFilter())
   async create(@Body() dto: CreateUserDTO) {
-    return this.userService.create(dto);
+    return this.userBLL.create(dto);
   }
 
   @Get()

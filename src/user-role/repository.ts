@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { DataTypes, Model, ModelStatic } from 'sequelize';
+import { DataTypes } from 'sequelize';
+import { BaseRepository } from 'src/common/repository/base.repository';
 import { DatabaseService } from 'src/database/database.service';
 import { RoleRepository } from 'src/role/role.repository';
 import { UserRepository } from 'src/user/user.repository';
+import { UserRoleDTO } from './dto/dto';
 
 @Injectable()
-export class UserRoleRepository {
-  private model: ModelStatic<Model<any, any>>;
-
+export class UserRoleRepository extends BaseRepository<UserRoleDTO> {
   constructor(
     private readonly databaseService: DatabaseService,
-    private readonly userRepository: UserRepository,
     private readonly roleRepository: RoleRepository,
+    private readonly userRepository: UserRepository,
   ) {
-    this.model = databaseService.define(
+    const model = databaseService.define(
       'userRole',
       {
         id: {
@@ -26,7 +26,7 @@ export class UserRoleRepository {
           type: DataTypes.NUMBER,
           allowNull: false,
           references: {
-            model: this.userRepository.getModel(),
+            model: userRepository.getModel(),
             key: 'id',
           },
         },
@@ -34,7 +34,7 @@ export class UserRoleRepository {
           type: DataTypes.NUMBER,
           allowNull: false,
           references: {
-            model: this.roleRepository.getModel(),
+            model: roleRepository.getModel(),
             key: 'id',
           },
         },
@@ -49,9 +49,7 @@ export class UserRoleRepository {
       },
       { tableName: 'users_roles', underscored: true },
     );
-  }
 
-  getModel() {
-    return this.model;
+    super(model);
   }
 }

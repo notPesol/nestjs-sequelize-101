@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDTO {
   @IsString()
@@ -19,4 +20,15 @@ export class CreateUserDTO {
     required: true,
   })
   password: string;
+
+  @IsNumber()
+  @Transform((params) => params?.value || 2)
+  @IsOptional()
+  @ApiProperty({
+    type: Number,
+    description: 'role id',
+    example: 2,
+    required: false,
+  })
+  roleId: number = 2;
 }
