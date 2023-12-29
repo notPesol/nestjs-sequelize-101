@@ -1,24 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { DataTypes } from 'sequelize';
 import { BaseRepository } from 'src/common/repository/base.repository';
-import { DatabaseService } from 'src/database/database.service';
-import { RoleDTO } from './dto/role.dto';
+import { DatabaseService } from 'src/database/service';
+import { UserDTO } from './dto/dto';
 
 @Injectable()
-export class RoleRepository extends BaseRepository<RoleDTO> {
+export class UserRepository extends BaseRepository<UserDTO> {
   constructor(private readonly databaseService: DatabaseService) {
     const model = databaseService.define(
-      'role',
+      'user',
       {
         id: {
           type: DataTypes.NUMBER,
           primaryKey: true,
           autoIncrement: true,
         },
-        name: {
+        username: {
           type: DataTypes.STRING,
           unique: true,
           allowNull: false,
+        },
+        password: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        isActive: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: true,
         },
         createdAt: {
           type: DataTypes.DATE,
@@ -29,7 +37,7 @@ export class RoleRepository extends BaseRepository<RoleDTO> {
           defaultValue: Date.now,
         },
       },
-      { tableName: 'roles', underscored: true },
+      { tableName: 'users', underscored: true },
     );
 
     super(model);

@@ -7,7 +7,7 @@ import {
   ModelStatic,
   Sequelize,
 } from 'sequelize';
-import { IDatabase } from './interface/database.dto';
+import { IDatabase } from './interface';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit {

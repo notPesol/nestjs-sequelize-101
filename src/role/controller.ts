@@ -11,7 +11,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { RoleService } from './role.service';
+import { RoleService } from './service';
 import { RoleSearchDTO } from './dto/search-role.dto';
 import { CreateRoleDTO } from './dto/create-role.dto';
 import { HttpExceptionFilter } from 'src/common/filter/http-exception.filter';

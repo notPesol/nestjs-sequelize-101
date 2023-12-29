@@ -1,4 +1,4 @@
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/user/service';
 import { SignInUserDTO } from './dto/sign-in-user.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';

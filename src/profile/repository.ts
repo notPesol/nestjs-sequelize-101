@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { DataTypes } from 'sequelize';
 import { BaseRepository } from 'src/common/repository/base.repository';
-import { DatabaseService } from 'src/database/database.service';
-import { UserRepository } from 'src/user/user.repository';
+import { DatabaseService } from 'src/database/service';
+import { UserRepository } from 'src/user/repository';
 import { ProfileDTO } from './dto/dto';
 
 @Injectable()

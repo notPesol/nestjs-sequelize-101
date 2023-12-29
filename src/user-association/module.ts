@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from 'src/user/module';
 import { UserAssociationRepository } from './repository';
-import { RoleModule } from 'src/role/role.module';
+import { RoleModule } from 'src/role/module';
 import { UserRoleModule } from 'src/user-role/module';
 import { UserAssociationService } from './service';
 import { ProfileModule } from 'src/profile/module';

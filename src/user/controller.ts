@@ -12,7 +12,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from './service';
 import { UserSearchDTO } from './dto/search-user.dto';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { HttpExceptionFilter } from 'src/common/filter/http-exception.filter';
@@ -22,10 +22,10 @@ import {
   SwaggerResponse,
   SwaggerSearchResponse,
 } from 'src/common/swagger/swagger-response';
-import { UserDTO } from './dto/user.dto';
+import { UserDTO } from './dto/dto';
 import { ROLES } from 'src/role/enum';
 import { Roles } from 'src/role/decorator';
-import { UserBLL } from './user.bll';
+import { UserBLL } from './bll';
 
 @ApiBearerAuth()
 @ApiTags('Users')

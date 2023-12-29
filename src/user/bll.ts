@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from './service';
 import { UserRoleService } from 'src/user-role/service';
 import { ResponseDTO } from 'src/common/dto/response.dto';
 import { CreateUserDTO } from './dto/create-user.dto';
-import { UserDTO } from './dto/user.dto';
+import { UserDTO } from './dto/dto';
 import * as bcrypt from 'bcrypt';
 import { UserRoleDTO } from 'src/user-role/dto/dto';
 

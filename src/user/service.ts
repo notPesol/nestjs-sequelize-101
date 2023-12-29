@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { UserRepository } from './user.repository';
-import { UserDTO } from './dto/user.dto';
+import { UserRepository } from './repository';
+import { UserDTO } from './dto/dto';
 import { UserSearchDTO } from './dto/search-user.dto';
 import { ResponseDTO } from 'src/common/dto/response.dto';
 import { FindOptions, Op, WhereOptions } from 'sequelize';

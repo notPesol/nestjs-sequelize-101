@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ProfileRepository } from 'src/profile/repository';
-import { RoleRepository } from 'src/role/role.repository';
+import { RoleRepository } from 'src/role/repository';
 import { UserRoleRepository } from 'src/user-role/repository';
-import { UserRepository } from 'src/user/user.repository';
+import { UserRepository } from 'src/user/repository';
 
 export enum VIEWS {
   USER_ROLES = 'user-roles',

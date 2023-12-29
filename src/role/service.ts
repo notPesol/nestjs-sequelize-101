@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RoleRepository } from './role.repository';
+import { RoleRepository } from './repository';
 import { RoleDTO } from './dto/role.dto';
 import { RoleSearchDTO } from './dto/search-role.dto';
 import { ResponseDTO } from 'src/common/dto/response.dto';

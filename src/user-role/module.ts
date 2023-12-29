@@ -1,8 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from 'src/database/module';
 import { UserRoleRepository } from './repository';
-import { UserModule } from 'src/user/user.module';
-import { RoleModule } from 'src/role/role.module';
+import { UserModule } from 'src/user/module';
+import { RoleModule } from 'src/role/module';
 import { UserRoleService } from './service';
 
 @Module({
